@@ -1,21 +1,22 @@
-<div class="container">
+<div >
   <div>
     <img
       src="https://geeks.madrasthemes.com/wp-content/themes/geeks/assets/images/background/profile-bg.jpg"
       alt=""
+      class="object-cover sm:h-52 h-36 w-full"
     />
   </div>
   <div *ngIf="courses$ | async as courses">
     <!-- Instructor Info -->
     <div *ngIf="getInstructorDetails(courses)" class="rounded-lg shadow-md">
       <div class="bg-white">
-        <div class="flex items-center py-4 w-3/4 mx-auto relative">
+        <div class="flex flex-col sm:flex-row items-center py-4 lg:w-3/4 w-5/6 mx-auto relative">
           <img
             [src]="getInstructorDetails(courses)?.avatar"
             alt="{{ getInstructorDetails(courses)?.name }}"
-            class="w-36 h-36 rounded-full absolute -top-20 bg-white p-1"
+            class="sm:w-36 sm:h-36 w-25 h-25 rounded-full absolute -top-20 bg-white p-1"
           />
-          <div class="ml-40 flex items-center gap-3">
+          <div class="sm:ml-40 flex sm:mt-0 mt-3 sm:flex-row flex-col items-center sm:gap-3 gap-1">
             <h2 class="text-2xl font-semibold">
               {{ getInstructorDetails(courses)?.name }}
             </h2>
@@ -28,7 +29,7 @@
     </div>
 
     <div *ngIf="getInstructorDetails(courses)" class="bg-[#F5F4F8]">
-      <div class="grid grid-cols-4 w-3/4 mx-auto gap-5 p-5">
+      <div class="grid md:grid-cols-4 grid-cols-1 lg:w-3/4 sm:w-5/6 mx-auto md:gap-5 p-5">
         <div class="col-span-1">
           <div class="bg-white p-5 rounded-lg">
             <p class="text-lg font-semibold">About Me</p>
@@ -38,7 +39,7 @@
               how new technologies.
             </p>
           </div>
-          <div class="bg-white p-5 rounded-lg mt-5 flex flex-col gap-3">
+          <div class="bg-white p-5 rounded-lg my-5 flex flex-col gap-3">
             <div class="flex justify-between items-center">
               <div>
                 <p class="font-bold text-lg">
@@ -78,17 +79,17 @@
               </p>
             </div>
             <div *ngFor="let course of getInstructorCourses(courses)" >
-              <div class="flex items-center py-5"  [routerLink]="['/courses', course.id]">
+              <div class="flex sm:flex-row flex-col sm:items-center py-5"  [routerLink]="['/courses', course.id]">
                 <img
                   [src]="course.img"
                   alt="{{ course.title }}"
-                  class="w-32 h-22 rounded-lg"
+                  class="sm:w-32 sm:h-22 rounded-lg"
                 />
-                <div class="ml-4 flex flex-col gap-2">
+                <div class="ml-4 sm:mt-0 mt-2 flex flex-col gap-2">
                   <a class="text-lg hover:text-[#754FFE] font-semibold" [routerLink]="['/courses', course.id]">{{
                     course.title
                   }}</a>
-                  <div class="flex gap-4 items-center">
+                  <div class="flex sm:flex-row flex-col sm:gap-4 gap-2 sm:items-center">
                     <p class="text-neutral-600 text-sm">
                       <i class="fa-regular fa-clock mr-1"></i>{{ course.time }}
                     </p>
