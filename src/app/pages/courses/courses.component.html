@@ -1,0 +1,142 @@
+<div class="bg-[#F5F4F8]">
+  <div class="bg-[#754FFE] py-10">
+    <h1 class="text-white text-5xl text-center font-bold w-5/6 mx-auto">
+      Learn
+    </h1>
+  </div>
+  <div class="w-4/5 mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6 py-12">
+    <div
+      [ngClass]="{ block: showDrawer, hidden: !showDrawer }"
+      class="col-span-1 lg:block hidden lg:static fixed top-0 bottom-0 left-0 right-0 z-10 bg-white p-5 lg:p-0 lg:bg-transparent lg:rounded-lg overflow-y-auto"
+    >
+      <div class="bg-white p-5 rounded-lg flex flex-col">
+        <button
+          class="text-neutral-600 self-end lg:hidden block"
+          (click)="toggleDrawer()"
+        >
+          <i class="fa-solid fa-xmark me-1 text-2xl"></i>
+        </button>
+        <div class="flex justify-between items-center">
+          <p class="text-lg">Filter</p>
+          <button class="text-sm text-neutral-400" (click)="clearFilters()">
+            <i class="fa-regular fa-circle-xmark text-[12px]"></i> clear
+          </button>
+        </div>
+        <hr class="my-4" />
+        <div>
+          <p class="mb-3 text-neutral-600 text-sm">CATEGORY</p>
+          <div *ngFor="let category of categories" class="flex gap-2 mt-1">
+            <input
+              type="checkbox"
+              [(ngModel)]="selectedCategories[category]"
+              class="checked:text-[#754FFE] "
+              [id]="category"
+              (change)="applyFilters()"
+            />
+            <label [for]="category" class="text-neutral-600">{{
+              category
+            }}</label>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div>
+          <p class="mb-3 text-neutral-600 text-sm">LEVELS</p>
+          <div *ngFor="let level of levels" class="flex gap-2 mt-1">
+            <input
+              type="checkbox"
+              [(ngModel)]="selectedLevels[level]"
+              class="checked:bg-[#754FFE]"
+              [id]="level"
+              (change)="applyFilters()"
+            />
+            <label [for]="level" class="text-neutral-600">{{ level }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-3">
+      <div class="flex justify-between items-center mb-5 lg:hidden">
+        <h1 class="text-4xl text-neutral-600">Courses</h1>
+        <button class="relative" (click)="toggleDrawer()">
+          <i
+            class="fa-solid fa-sliders bg-[#E2E5F6] text-[#754FFE] text-2xl py-2 px-3 rounded-full"
+          ></i>
+        </button>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start gap-6"
+      >
+        <div
+          *ngFor="let course of paginatedCourses"
+          class="bg-white rounded-lg"
+        >
+          <a [routerLink]="['/courses', course.id]">
+            <img [src]="course.img" alt="course-img" class="rounded-t-xl" />
+          </a>
+          <div class="bg-white shadow-md rounded-xl p-5">
+            <a
+              [routerLink]="['/courses', course.id]"
+              class="text-lg mb-2 hover:text-[#754FFE]"
+              >{{ course.title }}</a
+            >
+            <div class="flex gap-2 items-center mt-2">
+              <i class="fa-solid fa-clock text-neutral-500"></i>
+              <p class="text-gray-700">{{ course.time }}</p>
+            </div>
+            <div class="flex gap-2 items-center">
+              <i class="fa-solid fa-signal text-neutral-500"></i>
+              <p class="text-gray-700">{{ course.level }}</p>
+            </div>
+            <div class="flex items-center my-2">
+              <ng-container
+                *ngFor="let star of getStars(course.rating); let i = index"
+              >
+                <i
+                  class="fa text-[#FFAA46] text-sm"
+                  [ngClass]="{
+                    'fa-star': star,
+                    'fa-star-half-alt': !star,
+                    'fa-star-o': star === null
+                  }"
+                ></i>
+              </ng-container>
+              <p class="text-neutral-500 ms-2">{{ course.rating }}</p>
+            </div>
+            <hr />
+            <div class="flex justify-between mt-3 items-center"  *ngFor="let instructor of course.instructor">
+              <div class="flex gap-2 items-center">
+                <img
+                  [src]="instructor.avatar"
+                  alt="avatar"
+                  class="h-8 w-8 rounded-full"
+                />
+                <p class="text-neutral-500">{{ instructor.name }}</p>
+              </div>
+              <div>
+                <i
+                  class="fa-regular fa-bookmark text-neutral-500 hover:text-purple-500 hover:cursor-pointer"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center mt-5">
+        <button
+          class="px-3 py-1 mx-1 bg-[#754FFE] text-white rounded"
+          (click)="prevPage()"
+          [disabled]="currentPage === 1"
+        >
+          Previous
+        </button>
+        <button
+          class="px-3 py-1 mx-1 bg-[#754FFE] text-white rounded"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

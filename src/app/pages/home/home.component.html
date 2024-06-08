@@ -1,0 +1,77 @@
+<div class="bg-[#754FFE]">
+  <div class="w-5/6  mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="flex-col flex items-start gap-5 mt-7 py-5 md:pe-48">
+        <h1 class="text-white md:text-5xl text-2xl font-bold">
+          Welcome to Geeks UI Learning Application
+        </h1>
+        <p class="text-white md:text-xl text-lg">
+          Hand-picked Instructor and expertly crafted courses, designed for the
+          modern students and entrepreneur.
+        </p>
+        <a
+          class="bg-[#19CB98] px-4 py-2 rounded-lg text-white"
+          routerLink="/courses"
+          >Browse Courses</a
+        >
+      </div>
+      <div>
+        <img
+          src="https://geeks.madrasthemes.com/wp-content/uploads/2021/09/hero-img.png"
+          alt="hero-img"
+          class="object-cover h-full w-full"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white shadow-md">
+  <div class="w-5/6  mx-auto">
+    <div class="py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
+      <div class="flex gap-3 items-center">
+        <i
+          class="fa-solid fa-video bg-[#FFEEDA] p-4 rounded-full text-[#C28165]"
+        ></i>
+        <div>
+          <p class="text-xl font-bold">30,000 online courses</p>
+          <p>Enjoy a variety of fresh topics</p>
+        </div>
+      </div>
+      <div class="flex gap-3 items-center">
+        <i
+          class="fa-solid fa-users bg-[#FFEEDA] p-4 rounded-full text-[#C28165]"
+        ></i>
+        <div>
+          <p class="text-xl font-bold">Expert instruction</p>
+          <p>Find the right instructor for you</p>
+        </div>
+      </div>
+      <div class="flex gap-3 items-center">
+        <i
+          class="fa-solid fa-clock bg-[#FFEEDA] p-4 rounded-full text-[#C28165]"
+        ></i>
+        <div>
+          <p class="text-xl font-bold">Lifetime access</p>
+          <p>Learn on your schedule</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-20 bg-[#F5F4F8]">
+  <div class="lg:w-5/6 w-full mx-auto flex flex-col gap-9">
+    <div>
+      <p class="text-3xl ms-4 mb-2">Recommended to you</p> 
+      <app-slider [courses]="recommendedCourses"></app-slider>
+    </div>
+    <div>
+      <p class="text-3xl ms-4 mb-2">Most Popular</p>
+      <app-slider [courses]="mostPopularCourses"></app-slider>
+    </div>
+    <div>
+      <p class="text-3xl ms-4 mb-2">Trending</p>
+      <app-slider [courses]="trendingCourses"></app-slider>
+    </div>
+  </div>
+</div>

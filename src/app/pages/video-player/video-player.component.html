@@ -1,0 +1,65 @@
+<div *ngIf="course">
+  <div class="bg-[#F5F4F8] relative">
+    <div class="grid grid-cols-1 lg:grid-cols-4">
+      <div class="col-span-3 py-5 sm:px-12 px-4 sm:mb-10 flex flex-col gap-5">
+        <h2 class="sm:text-4xl text-2xl font-semibold">{{ courseTitle }}</h2>
+        <video
+          width="100%"
+          class="rounded-2xl"
+          controls
+          [src]="currentVideoUrl"
+        >
+          Your browser does not support the video tag.
+        </video>
+        <h2 class="sm:text-2xl text-lg font-semibold ms-5">
+          {{ currentVideoTitle }}
+        </h2>
+       <div class="flex sm:gap-7 gap-4 px-5">
+        <div>
+            <div class="flex gap-1 items-center">
+              <p class="font-bold">{{ course.rating }}</p>
+              <i class="fa fa-star text-yellow-500"></i>
+            </div>
+            <p>Rating</p>
+          </div>
+          <div>
+              <p class="font-bold">{{course.enrolled}}</p>
+              <p>Students</p>
+          </div>
+          <div>
+              <p class="font-bold">{{course.time}}</p>
+              <p>Total Hours</p>
+          </div>
+       </div>
+      </div>
+      <div
+        class="col-span-1 overflow-hidden md:sticky md:top-0"
+        style="height:100vh "
+      >
+        <h3 class="sm:text-2xl text-lg font-semibold bg-white p-5">
+          Course Content
+        </h3>
+        <ul class="flex flex-col h-svh overflow-y-auto text-white bg-purple-600">
+          <li
+            *ngFor="let video of course?.videos; let i = index"
+            (click)="playVideo(video.url, video.title, i)"
+            class="cursor-pointer hover:bg-purple-800 p-5 border-b flex"
+          >
+            <input
+              type="checkbox"
+              [checked]="video.watched"
+              class="mr-2 checked:bg-purple-500"
+            />
+            <div class="flex flex-col justify-start">
+              <p class="font-semibold">{{ video.title }}</p>
+              <div>
+                <i class="fa-regular fa-circle-play mr-2"></i>
+                <span class="text-sm">{{ video.time }}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

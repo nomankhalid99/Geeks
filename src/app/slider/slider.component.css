@@ -1,0 +1,9 @@
+.carousel {
+    .slick-dots {
+      bottom: -30px;
+    }
+  }
+
+.slick-arrow::before{
+  display: none;
+}
