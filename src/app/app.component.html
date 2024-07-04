@@ -8,47 +8,110 @@
       />
     </a>
     <div class="hidden md:flex gap-5 items-center">
-      <a class="text-neutral-800 text-base hover:text-purple-500" routerLinkActive="active" routerLink="/">Home</a>
-      <a class="text-neutral-800 text-base hover:text-purple-500" routerLinkActive="active" routerLink="/courses">Courses</a>
+      <a
+        class="text-neutral-800 text-base hover:text-purple-500"
+        routerLinkActive="active"
+        routerLink="/"
+        >Home</a
+      >
+      <a
+        class="text-neutral-800 text-base hover:text-purple-500"
+        routerLinkActive="active"
+        routerLink="/courses"
+        >Courses</a
+      >
     </div>
   </div>
-  <div class="border p-2 rounded w-1/3 hidden md:flex items-center">
+  <div class="border p-2 rounded w-1/3 hidden md:flex items-center relative">
     <i class="fa fa-search text-neutral-500"></i>
     <input
       type="text"
       placeholder="Search Course"
       [(ngModel)]="searchQuery"
-      (keypress)="handleKeypress($event)"
-      class="focus:border-none outline-none ms-2"
+      (input)="onInputChange()"
+      class="focus:border-none outline-none ms-2 w-full"
     />
+    <div
+      *ngIf="searchSuggestions$ | async as filteredSuggestions"
+      class="absolute z-10 top-11 -left-0 bg-white w-full rounded-md shadow-lg"
+    >
+      <ul class="py-1">
+        <li
+          *ngFor="let suggestion of filteredSuggestions"
+          class="cursor-pointer px-4 py-2 text-sm text-neutral-700 hover:bg-gray-100"
+          (click)="selectSuggestion(suggestion)"
+        >
+          {{ suggestion }}
+        </li>
+      </ul>
+    </div>
   </div>
-  <button (click)="openSignInModal()" class="hidden md:inline-block px-4 py-2 border text-neutral-700">
+  <button
+    (click)="openSignInModal()"
+    class="hidden md:inline-block px-4 py-2 border text-neutral-700"
+  >
     Sign In
   </button>
-  <button (click)="toggleMenu()" class="md:hidden px-4 py-2 border text-neutral-700">
+  <button
+    (click)="toggleMenu()"
+    class="md:hidden px-4 py-2 border text-neutral-700"
+  >
     <i class="fa fa-bars text-neutral-600"></i>
   </button>
 </nav>
-<div [class.hidden]="menuHidden" class="md:hidden flex flex-col gap-5 items-start p-5 mt-2">
-  <a class="text-neutral-800 text-base hover:text-purple-500 active:text-purple-500"  (click)="toggleMenu()" routerLink="/">Home</a>
-  <a class="text-neutral-800 text-base hover:text-purple-500 active:text-purple-500" (click)="toggleMenu()" routerLink="/courses">Courses</a>
+<div
+  [class.hidden]="menuHidden"
+  class="md:hidden flex flex-col gap-5 items-start p-5 mt-2"
+>
+  <a
+    class="text-neutral-800 text-base hover:text-purple-500 active:text-purple-500"
+    (click)="toggleMenu()"
+    routerLink="/"
+    >Home</a
+  >
+  <a
+    class="text-neutral-800 text-base hover:text-purple-500 active:text-purple-500"
+    (click)="toggleMenu()"
+    routerLink="/courses"
+    >Courses</a
+  >
   <div class="border p-2 rounded w-full items-center flex">
     <i class="fa fa-search text-neutral-500"></i>
     <input
-    type="text"
-    placeholder="Search Course"
-    [(ngModel)]="searchQuery"
-    (keypress)="handleKeypress($event)"
-    class="focus:border-none outline-none ms-2"
-  />
+      type="text"
+      placeholder="Search Course"
+      [(ngModel)]="searchQuery"
+      (input)="onInputChange()"
+
+      class="focus:border-none outline-none ms-2 w-full"
+    />
+    <div
+      *ngIf="searchSuggestions$ | async as filteredSuggestions"
+      class="absolute z-10 top-60 left-5 bg-white w-[93%] rounded-md shadow-lg"
+    >
+      <ul class="py-1">
+        <li
+          *ngFor="let suggestion of filteredSuggestions"
+          class="cursor-pointer px-4 py-2 text-sm text-neutral-700 hover:bg-gray-100"
+          (click)="selectSuggestion(suggestion)"
+        >
+          {{ suggestion }}
+        </li>
+      </ul>
+    </div>
   </div>
-  <button  (click)="openSignInModal()" class="px-4 py-2 border text-neutral-700 w-full">
+  <button
+    (click)="openSignInModal()"
+    class="px-4 py-2 border text-neutral-700 w-full"
+  >
     Sign In
   </button>
 </div>
 
-<app-sign-in-modal [isVisible]="isSignInModalVisible" (close)="closeSignInModal()"></app-sign-in-modal>
-
+<app-sign-in-modal
+  [isVisible]="isSignInModalVisible"
+  (close)="closeSignInModal()"
+></app-sign-in-modal>
 
 <router-outlet></router-outlet>
 
